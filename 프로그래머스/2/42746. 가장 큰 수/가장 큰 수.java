@@ -2,8 +2,6 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        String answer = "";
-        
         List<String> arr = new ArrayList<>();
         for(int i=0; i<numbers.length; i++) 
             arr.add(Integer.toString(numbers[i]));
@@ -17,11 +15,13 @@ class Solution {
             }
         });
         
-        for(String s : arr) answer+=s;
+        //StringBuilder 사용 시 성능 향상 
+        StringBuilder sb = new StringBuilder();
+        for(String s : arr) sb.append(s);
         
         //테케 11번 반례
-        if(answer.charAt(0)=='0') return "0";
+        if(sb.toString().charAt(0)=='0') return "0";
         
-        return answer;
+        return sb.toString();
     }
 }
