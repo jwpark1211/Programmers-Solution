@@ -3,9 +3,12 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         List<String> arr = new ArrayList<>();
+        
+        //int -> String 변환하여 배열 생성 
         for(int i=0; i<numbers.length; i++) 
             arr.add(Integer.toString(numbers[i]));
         
+        //String 기준으로 o1+o2와 o2+o1 값 비교, Comparator로 정렬 
         Collections.sort(arr, new Comparator<String>(){
             @Override
             public int compare(String o1, String o2){
