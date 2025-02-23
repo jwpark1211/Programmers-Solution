@@ -12,7 +12,7 @@ class Solution {
         return true;
     }
     
-    //DFS -> Set으로 중복 제거 
+    //DFS로 numbers로 만들 수 있는 모든 경우의 수 찾음 -> Set으로 중복 제거 
     public void DFS(String numbers, int cnt, String result){
         if(cnt == numbers.length()){
             if(result != ""){
@@ -34,9 +34,10 @@ class Solution {
     //결과 도출
     public int solution(String numbers) {
         int answer = 0;
+        //DFS로 모든 경우의 수 찾고 Set에 값 정리 
         DFS(numbers, 0, "");
         for(int s : set){
-            System.out.println("s:"+s);
+            //Set 돌면서 해당 값이 소수인지 판별 
             if(isPrime(s)) answer++;
         }
         return answer;
