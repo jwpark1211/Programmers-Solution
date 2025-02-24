@@ -13,10 +13,12 @@ class Solution {
         Queue<Pair> q = new LinkedList<>();
         q.offer(new Pair(0,0));
         
+        //큐에 벽이 없는 곳 동서남북으로 찾아다니며 넣고 최단거리 계산 반복 
         while(!q.isEmpty()){
             int len = q.size();
             for(int j=0; j<len; j++){
                 Pair pair = q.poll();
+                //목적지 도착하면 값 리턴 
                 if(pair.x==n-1 && pair.y==m-1) return answer;
                 for(int i=0; i<4; i++){
                     int nx = pair.x + dx[i];
