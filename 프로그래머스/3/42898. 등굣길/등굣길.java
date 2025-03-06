@@ -19,13 +19,6 @@ class Solution {
             }
         }
         
-        /*for(int i=1; i<=n; i++){
-            for(int j=1; j<=m; j++){
-                System.out.print(dp[i][j]+",");
-            }
-            System.out.println();
-        }*/
-        
         return dp[n][m];
     }
 }
