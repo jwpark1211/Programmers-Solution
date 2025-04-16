@@ -9,14 +9,13 @@ public class Main {
         PriorityQueue<Long> pq = new PriorityQueue<>(Comparator.reverseOrder());
         N = scanner.nextInt();
         for(int i=0; i<N; i++){
-            scanner.nextLine();
             for(int j=0; j<N; j++){
                 pq.add(scanner.nextLong());
             }
         }
 
         for(int i=0; i<N-1; i++){
-            pq.remove();
+            pq.poll();
         }
         System.out.println(pq.poll());
     }
