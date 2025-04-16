@@ -2,23 +2,19 @@ import java.util.Stack;
 
 class Solution {
     boolean solution(String s) {
-        boolean answer = true;
         Stack<Character> stack = new Stack<>();
-        
-        //Stack에 '('은 저장, ')'은 '('가 있는 경우 pop
         for(int i=0; i<s.length(); i++){
-            if(s.charAt(i)=='(') 
-                stack.push(s.charAt(i));
+            if(s.charAt(i)=='(')
+                stack.push('(');
             else{
-                //')'는 있는데 스택이 비어있으면 올바른 괄호 X
-                if(stack.empty()) return false;
-                else stack.pop();
+                if(!stack.isEmpty() && stack.peek()=='(')
+                    stack.pop();
+                else if(!stack.isEmpty() && stack.peek()==')')
+                    return false;
+                else if(stack.isEmpty()) return false;
             }
         }
-        
-        //Stack이 비어있으면 올바른 괄호 X 
-        if(!stack.empty()) return false;
-
-        return answer;
+        if(stack.isEmpty()) return true;
+        return false;
     }
 }
