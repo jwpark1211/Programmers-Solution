@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N;
-    static long M;
+    static int M;
 
     public static void main(String[] args) throws IOException {
         long answer = 0;
@@ -14,16 +14,16 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        M = Long.parseLong(st.nextToken());
-        long[] arr = new long[N];
+        M = Integer.parseInt(st.nextToken());
+        int[] arr = new int[N];
         StringTokenizer st2 = new StringTokenizer(br.readLine());
-        for(int i=0; i<N; i++) arr[i] = Long.parseLong(st2.nextToken());
+        for(int i=0; i<N; i++) arr[i] = Integer.parseInt(st2.nextToken());
         Arrays.sort(arr);
 
-        long low = 0;
-        long high = arr[N-1];
+        int low = 0;
+        int high = arr[N-1];
         while(low<=high){
-            long mid = (low+high)/2;
+            int mid = (low+high)/2;
             //System.out.println("mid = " + mid);
 
             long sum = 0;
