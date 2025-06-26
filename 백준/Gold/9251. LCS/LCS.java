@@ -1,33 +1,24 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.StringTokenizer;
+
 
 public class Main {
-    public static String A;
-    public static String B;
-    public static int[][] arr;
+    public static String s1;
+    public static String s2;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        A = br.readLine();
-        B = br.readLine();
-        arr = new int[A.length()+1][B.length()+1];
-        //초기화
-        if(A.charAt(0)==B.charAt(0)) arr[0][0] = 1; else arr[0][0] = 0;
-        for(int i=1; i<B.length(); i++){
-            if(A.charAt(0)==B.charAt(i)) arr[0][i] = 1;
-            else arr[0][i] = arr[0][i-1];
-        }
-        for(int i=1; i<A.length(); i++){
-            if(B.charAt(0)==A.charAt(i)) arr[i][0] = 1;
-            else arr[i][0] = arr[i-1][0];
-        }
-        //DP
-        for(int i=1; i<A.length(); i++){
-            for(int j=1; j<B.length(); j++){
-                if(A.charAt(i)==B.charAt(j)) arr[i][j] = arr[i-1][j-1] + 1;
-                else arr[i][j] = Math.max(arr[i-1][j],arr[i][j-1]);
+        s1 = br.readLine();
+        s2 = br.readLine();
+        int dp[][] = new int[s1.length()+1][s2.length()+1];
+
+        for(int i=1; i<=s1.length(); i++){
+            for(int j=1; j<=s2.length(); j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i-1][j - 1]+ 1;
+                } else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
             }
         }
-        System.out.println(arr[A.length()-1][B.length()-1]);
+
+        System.out.println(dp[s1.length()][s2.length()]);
     }
 }
