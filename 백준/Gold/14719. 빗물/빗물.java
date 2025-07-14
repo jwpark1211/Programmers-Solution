@@ -1,30 +1,35 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
 public class Main {
-    public static int H;
-    public static int W;
-    public static int ans = 0;
+    static int H,W; //(1 ≤ H, W ≤ 500)
+    static int[] block;
+    static int answer = 0;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // 입력
+        BufferedReader br =  new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         H = Integer.parseInt(st.nextToken());
         W = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        int arr[] = new int[W];
-        for(int i=0; i<W; i++) arr[i] = Integer.parseInt(st.nextToken());
+        block = new int[W];
+        for(int i=0; i<W; i++) block[i] = Integer.parseInt(st.nextToken());
 
-        for(int i=1; i<W-1; i++){
-            int left = 0; int right = 0;
-            for(int j=0; j<i; j++) if(left<arr[j]) left = arr[j];
-            for(int j=i+1; j<W;j++) if(right<arr[j]) right = arr[j];
-            if(left>arr[i] && right>arr[i]){
-                int smaller = Math.min(left, right);
-                ans += smaller - arr[i];
-            }
+        //계산
+        int left = block[0];
+        for(int i=1; i<W; i++){
+            //left max
+            left = Math.max(left, block[i-1]);
+            //right max
+            int right = 0;
+            for(int j=i+1; j<W; j++) right = Math.max(right, block[j]);
+
+            int min = Math.min(left, right);
+            if(block[i]<min) answer += (min - block[i]);
         }
 
-        System.out.println(ans);
+        System.out.println(answer);
     }
 }
