@@ -1,43 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
-//BFS 너비우선탐색 문제인듯!
-public class Main {
-    public static void main(String[] args) {
-        int dx[] = {-1,0,1,0};
-        int dy[] = {0,-1,0,1};
 
-        List<Integer> answer = new ArrayList<>();
-        //초기화
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int arr[][] = new int[N][N];
-        boolean visited[][] = new boolean[N][N];
-        sc.nextLine();
+public class Main {
+    static int N;
+    static char[][] graph;
+    static boolean[][] visited;
+    static int[] dx = {-1,0,1,0};
+    static int[] dy = {0,-1,0,1};
+    static List<Integer> answer = new ArrayList<>();
+    static class Point{
+        int x;
+        int y;
+        public Point(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        //=== 입력 ===//
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
+        graph = new char[N][N];
+        visited = new boolean[N][N];
 
         for(int i=0; i<N; i++){
-            String line = sc.nextLine();
+            String tmp = br.readLine();
             for(int j=0; j<N; j++){
-                arr[i][j] = Integer.parseInt(String.valueOf(line.charAt(j)));
+                graph[i][j] = tmp.charAt(j);
             }
         }
 
-        Queue<Dot> q = new LinkedList<>();
+        //=== BFS ===//
+        Queue<Point> q = new LinkedList<>();
         for(int i=0; i<N; i++){
             for(int j=0; j<N; j++){
-                if(visited[i][j]==false && arr[i][j]==1){
-                    q.offer(new Dot(i, j));
+                if(!visited[i][j] && graph[i][j]=='1'){
+                    q.add(new Point(i,j));
                     visited[i][j] = true;
                     int cnt = 1;
                     while(!q.isEmpty()){
-                        Dot dot = q.poll();
+                        Point cur = q.poll();
+
                         for(int k=0; k<4; k++){
-                            int nx = dot.x+dx[k];
-                            int ny = dot.y+dy[k];
-                            if(nx>=0 && nx<N && ny>=0 && ny<N && arr[nx][ny]==1 && visited[nx][ny]==false){
-                                visited[nx][ny] = true;
-                                cnt ++;
-                                q.offer(new Dot(nx, ny));
-                            }
+                            int nx = cur.x + dx[k];
+                            int ny = cur.y + dy[k];
+                            if(nx<0 || ny<0 || nx>=N || ny>=N) continue;
+                            if(graph[nx][ny]=='0') continue;
+                            if(visited[nx][ny]) continue;
+
+                            visited[nx][ny] = true;
+                            cnt ++;
+                            q.add(new Point(nx, ny));
                         }
                     }
                     answer.add(cnt);
@@ -45,19 +61,8 @@ public class Main {
             }
         }
 
-        Collections.sort(answer);
         System.out.println(answer.size());
-        for(int a : answer){
-            System.out.println(a);
-        }
-    }
-
-    static class Dot{
-        int x;
-        int y;
-        public Dot(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
+        Collections.sort(answer);
+        for(int a : answer) System.out.println(a);
     }
 }
