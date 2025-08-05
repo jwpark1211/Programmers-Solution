@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 public class Main {
     static int N;
     static String S;
+    static String pattern = "BOJ";
     public static void main(String[] args) throws IOException {
         //입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,10 +31,10 @@ public class Main {
         else System.out.println(dp[N-1]);
 
     }
+    public static int getIndexOf(char c){
+        return pattern.indexOf(c);
+    }
     public static boolean canJump(char c1, char c2){
-        if(c2=='B' && c1=='J') return true;
-        if(c2=='O' && c1=='B') return true;
-        if(c2=='J' && c1=='O') return true;
-        return false;
+        return getIndexOf(c2) == (getIndexOf(c1)+1)%pattern.length();
     }
 }
