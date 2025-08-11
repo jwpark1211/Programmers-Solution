@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 public class Main {
     static int N;
     static int[] arr;
+    static int[][] attack = {{9,3,1},{9,1,3},{3,9,1},{3,1,9},{1,3,9},{1,9,3}};
     public static void main(String[] args) throws IOException {
         //입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,52 +33,15 @@ public class Main {
                 break;
             }
 
-            int n1 = (x1-9<0)?0:x1-9;
-            int n2 = (x2-3<0)?0:x2-3;
-            int n3 = (x3-1<0)?0:x3-1;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
-            }
+            for(int i=0; i<attack.length; i++){
+                int n1 = (x1-attack[i][0]<0)?0:x1-attack[i][0];
+                int n2 = (x2-attack[i][1]<0)?0:x2-attack[i][1];
+                int n3 = (x3-attack[i][2]<0)?0:x3-attack[i][2];
 
-            n1 = (x1-9<0)?0:x1-9;
-            n2 = (x2-1<0)?0:x2-1;
-            n3 = (x3-3<0)?0:x3-3;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
-            }
-
-            n1 = (x1-3<0)?0:x1-3;
-            n2 = (x2-9<0)?0:x2-9;
-            n3 = (x3-1<0)?0:x3-1;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
-            }
-
-            n1 = (x1-3<0)?0:x1-3;
-            n2 = (x2-1<0)?0:x2-1;
-            n3 = (x3-9<0)?0:x3-9;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
-            }
-
-            n1 = (x1-1<0)?0:x1-1;
-            n2 = (x2-3<0)?0:x2-3;
-            n3 = (x3-9<0)?0:x3-9;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
-            }
-
-            n1 = (x1-1<0)?0:x1-1;
-            n2 = (x2-9<0)?0:x2-9;
-            n3 = (x3-3<0)?0:x3-3;
-            if(!visited[n1][n2][n3]){
-                visited[n1][n2][n3] = true;
-                q.add(new int[]{n1,n2,n3,count+1});
+                if(!visited[n1][n2][n3]){
+                    visited[n1][n2][n3] = true;
+                    q.add(new int[]{n1,n2,n3,count+1});
+                }
             }
         }
     }
