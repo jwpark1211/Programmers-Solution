@@ -1,40 +1,36 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N;
-    static String S;
-    static String pattern = "BOJ";
+    static int N; //링크의 집 위치
+    static String S; //총 문장(??)
     public static void main(String[] args) throws IOException {
-        //입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(br.readLine());
         S = br.readLine();
 
-        int dp[] = new int[N+1];
-        for(int i=0; i<N+1; i++) dp[i] = 1000000;
-        dp[0] = 0;
+        long dp[] = new long[N+1];
+        for(int i=2; i<=N; i++) dp[i] = Integer.MAX_VALUE;
 
-        for(int i=0; i<N; i++){
-            for(int j=i+1; j<N; j++){
-                if(canJump(S.charAt(i), S.charAt(j))){
-                    dp[j] = Math.min(dp[j], dp[i]+(j-i)*(j-i));
+        for(int i=2; i<=N; i++){
+            for(int j=1; j<i; j++){
+                if(isBeforeWord(j, i)){
+                    dp[i] = Math.min(dp[i], dp[j]+(i-j)*(i-j));
                 }
             }
         }
 
-        if(dp[N-1]==1000000) System.out.println(-1);
-        else System.out.println(dp[N-1]);
-
+        if(dp[N]==Integer.MAX_VALUE) System.out.println(-1);
+        else System.out.println(dp[N]);
     }
-    public static int getIndexOf(char c){
-        return pattern.indexOf(c);
-    }
-    public static boolean canJump(char c1, char c2){
-        return getIndexOf(c2) == (getIndexOf(c1)+1)%pattern.length();
+    public static boolean isBeforeWord(int idx1, int idx2){
+        int num1 = getNumber(S.charAt(idx1-1));
+        int num2 = getNumber(S.charAt(idx2-1));
+        return (num1+1)%3==num2;
+    } 
+    public static int getNumber(char c){
+        if (c=='B') return 0;
+        else if(c=='O') return 1;
+        else return 2;
     }
 }
