@@ -1,21 +1,15 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N;
     public static void main(String[] args) throws IOException {
-        //입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
 
-        long dp[] = new long[101];
-        for(int i=0; i<=100; i++) dp[i] = i; //dp 초기화
+        long dp[] = new long[N+1];
+        for(int i=0; i<=N; i++) dp[i] = i;
 
-        //dp 계산..
-        for(int i=7; i<=100; i++){
+        for(int i=5; i<=N; i++){
             dp[i] = Math.max(dp[i], dp[i-3]*2);
             dp[i] = Math.max(dp[i], dp[i-4]*3);
             dp[i] = Math.max(dp[i], dp[i-5]*4);
