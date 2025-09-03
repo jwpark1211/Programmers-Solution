@@ -1,20 +1,20 @@
 #include <string>
 #include <vector>
-#include <iostream>
 #include <unordered_map>
 
 using namespace std;
 
 int solution(vector<vector<string>> clothes) {
-    int answer = 1;
-    unordered_map<string, int> hm;
+    unordered_map<string, int> map;
     
     for(vector<string> clothe : clothes){
-        hm[clothe[1]]++;
+        map[clothe[1]]++;
     }
     
-    for(auto key : hm){
-        answer *= key.second+1;
+    unordered_map<string, int>::iterator iter; 
+    int answer = 1;
+    for(iter=map.begin(); iter!=map.end(); iter++){
+        answer*=(iter->second+1);
     }
     
     return answer-1;
